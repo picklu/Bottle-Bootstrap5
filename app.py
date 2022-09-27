@@ -1,6 +1,16 @@
-import os
+import json
+from os import environ, path
 from bottle import error, route, run, template
-from data import get_data
+
+
+def get_data(fileName):
+    """Return data in json format"""
+    data = []
+    filePath = path.join(path.dirname(__file__), fileName)
+    with open(filePath, mode="r", encoding="utf8") as f:
+        data = json.loads(f.read())
+
+    return data
 
 
 @route("/")
