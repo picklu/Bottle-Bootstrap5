@@ -1,4 +1,4 @@
-import platform
+import os
 from bottle import error, route, run, template
 from data import get_data
 
@@ -15,7 +15,7 @@ def error404(error):
 
 
 if __name__ == "__main__":
-    if platform.system() == "Linux":
-        run(host="localhost", port=5000, reloader=True, debug=True)
-    elif platform.system() == "Windows":
-        run(host="localhost", port=8000, reloader=True, debug=True)
+    if os.environ.get('APP_LOCATION') == 'heroku':
+        run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    else:
+        run(host='localhost', port=8000, debug=True)
