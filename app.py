@@ -4,10 +4,9 @@ from data import get_data
 
 
 @route("/")
-@route("/hello/<name>")
-def hello(name="Stranger"):
+def index():
     data = get_data("combined_data.json")
-    return template("index", name=name, data=data)
+    return template("index", data=data)
 
 
 @error(404)
