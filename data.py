@@ -19,9 +19,20 @@ def combine_json_files(files):
     return data
 
 
+def get_data(fileName):
+    """Return data in json format"""
+    data = []
+    with open(fileName, mode="r", encoding="utf8") as f:
+        data = json.loads(f.read())
+
+    return data
+
+
 if __name__ == "__main__":
     current_path = path.dirname(__file__)
     data_folder = "data"
     file_name_pattern = "*.json"
     files = glob(path.join(current_path, data_folder, file_name_pattern))
     data = combine_json_files(files)
+    with open("combined_data.json", "w") as f:
+        json.dump(data, f)
