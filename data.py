@@ -20,7 +20,8 @@ def combine_json_files(files):
 def get_data(fileName):
     """Return data in json format"""
     data = []
-    with open(fileName, mode="r", encoding="utf8") as f:
+    filePath = path.join(path.dirname(__file__), fileName)
+    with open(filePath, mode="r", encoding="utf8") as f:
         data = json.loads(f.read())
 
     return data
