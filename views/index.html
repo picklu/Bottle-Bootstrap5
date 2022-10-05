@@ -24,15 +24,28 @@
                 </tr>
                 </thead>
                 <tbody>
-                %for i, article in enumerate(data):
+                %for i, article in enumerate(articles):
                     <tr scope="row">
-                        <td>{{i + 1}}</td>
+                        <td>{{ base_index + i + 1}}</td>
                         <td><a href="{{article.get('link', '#')}}" target="_blank">{{article.get('title', 'Not found')}}</a></td>
                         <td>{{article.get('abstract', 'Not found')}}</td>
                     </tr>
                 %end
                 </tbody>
             </table>
+        </div>
+        <div class="row">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination pagination-lg justify-content-center">
+                  <li class="page-item {{'disabled' if page == start_page else ''}}"><a class="page-link" href="/{{start_page}}">Start</a></li>
+                  <li class="page-item {{'disabled' if page == start_page else ''}}"><a class="page-link" href="/{{page - 1 if page > start_page else start_page}}">Previous</a></li>
+                  <li class="page-item"><a class="page-link" href="/{{page}}">{{page}}</a></li>
+                  <li class="page-item {{'disabled' if page + 1 > end_page else ''}}"><a class="page-link" href="/{{page + 1 if page + 1 <= end_page else end_page}}">{{page + 1 if page + 1 <= end_page else ".."}}</a></li>
+                  <li class="page-item {{'disabled' if page + 2 > end_page else ''}}"><a class="page-link" href="/{{page + 2 if page + 2 <= end_page else end_page}}">{{page + 2 if page + 2 <= end_page else ".."}}</a></li>
+                  <li class="page-item {{'disabled' if page + 1 > end_page else ''}}"><a class="page-link" href="/{{page + 1 if page + 1 <= end_page else end_page}}">Next</a></li>
+                  <li class="page-item {{'disabled' if page == end_page else ''}}"><a class="page-link" href="/{{end_page}}">End</a></li>
+                </ul>
+              </nav>
         </div>
     </div>
     <div class="container-fluid bg-primary text-white text-secondary text-center py-5">

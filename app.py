@@ -1,18 +1,31 @@
 import json
 from os import environ, path
+from math import ceil
 from bottle import error, route, run, template
 
-
+articles_per_page = 10
 data_file = "combined_data.json"
+data = []
+filePath = path.join(path.dirname(__file__), data_file)
+with open(filePath, mode="r", encoding="utf8") as f:
+    data = json.loads(f.read())
+total_articles = len(data)
 
 
 @route("/")
-def index():
-    data = []
-    filePath = path.join(path.dirname(__file__), data_file)
-    with open(filePath, mode="r", encoding="utf8") as f:
-        data = json.loads(f.read())
-    return template("index", data=data)
+@route("/<page:int>")
+def index(page=1):
+    start_page = 1
+    end_page = ceil(total_articles / articles_per_page)
+    articles = data[(page - 1) * articles_per_page:page * articles_per_page]
+    return template("index",
+                    page=page,
+                    start_page=start_page,
+                    end_page=end_page,
+                    base_index=(page - 1) * articles_per_page,
+                    articles_per_page=articles_per_page,
+                    total_articles=total_articles,
+                    articles=articles)
 
 
 @error(404)
