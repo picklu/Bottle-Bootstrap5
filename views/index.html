@@ -19,6 +19,7 @@
                 <thead class="table-primary">
                 <tr class="text-center">
                     <th scope="col">SL</th>
+                    <th scope="col">Search Key</th>
                     <th scope="col">Title</th>
                     <th scope="col">Abstract</th>
                 </tr>
@@ -27,6 +28,7 @@
                 %for i, article in enumerate(articles):
                     <tr scope="row">
                         <td>{{ base_index + i + 1}}</td>
+                        <td>{{article.get('key', '').split("_")[0]}}</td>
                         <td><a href="{{article.get('link', '#')}}" target="_blank">{{article.get('title', 'Not found')}}</a></td>
                         <td>{{article.get('abstract', 'Not found')}}</td>
                     </tr>

@@ -2,13 +2,10 @@ import json
 from os import environ, path
 from math import ceil
 from bottle import error, route, run, template
+from data import get_data
 
 articles_per_page = 10
-data_file = "combined_data.json"
-data = []
-filePath = path.join(path.dirname(__file__), data_file)
-with open(filePath, mode="r", encoding="utf8") as f:
-    data = json.loads(f.read())
+data = get_data()
 total_articles = len(data)
 
 
